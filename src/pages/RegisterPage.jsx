@@ -1,9 +1,23 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
+import { useForm } from 'react-hook-form'
+
 
 
 const RegisterPage = () => {
     const registerNavigate = useNavigate()
+    const {register, reset, handleSubmit, formState: {errors}} = useForm(
+        {
+            mode: "onChange",
+
+        }
+    )
+
+    const handleForm = (data) =>{
+        console.log(data);
+        reset();
+        
+    }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4">
       <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8">
@@ -14,18 +28,21 @@ const RegisterPage = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(handleForm)} className="space-y-5">
           {/* Name */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1.5">
               Name
             </label>
-            <input
+            <input {...register('name',{
+                required: "Name is Required"
+            })}
               id="name"
               type="text"
               placeholder="John Doe"
               className="w-full px-4 py-2.5 rounded-lg bg-slate-900/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
             />
+          {errors.name && <p className='text-red-600 font-semibold text-base'>{errors.name.message}</p>}
           </div>
 
           {/* Email */}
@@ -33,12 +50,15 @@ const RegisterPage = () => {
             <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1.5">
               Email
             </label>
-            <input
+            <input  {...register('email',{
+                required: "Email is Required"
+            })}
               id="email"
               type="email"
               placeholder="you@example.com"
               className="w-full px-4 py-2.5 rounded-lg bg-slate-900/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
             />
+          {errors.email && <p className='text-red-600 font-semibold text-base'>{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -46,13 +66,21 @@ const RegisterPage = () => {
             <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-1.5">
               Password
             </label>
-            <input
+            <input  {...register('password',{
+                required: "Password is Required",
+                minLength: {
+                    value: 6,
+                    message: "Minimum 6 Values are Required",
+                }
+            })}
               id="password"
               type="password"
               placeholder="••••••••"
               className="w-full px-4 py-2.5 rounded-lg bg-slate-900/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
             />
+          {errors.password && <p className='text-red-600 font-semibold text-base'>{errors.password.message}</p>}
           </div>
+
 
           <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
             <input
@@ -67,7 +95,7 @@ const RegisterPage = () => {
             </span>
           </label>
 
-          <button
+          <button 
             type="submit"
             className="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-medium transition shadow-lg shadow-indigo-600/20"
           >

@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import AuthLayout from "../Layouts/AuthLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import MainLayout from "../Layouts/MainLayout";
 
 const AppRoutes = () => {
   
@@ -21,6 +22,11 @@ const AppRoutes = () => {
                         element: <RegisterPage/>
                     }
                 ]
+            },
+
+            {
+                path: '/main',
+                element: <MainLayout/>
             }
         ]
     )
