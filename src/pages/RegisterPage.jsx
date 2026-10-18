@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import { Auth } from '../context/AuthContext'
 
 
 
 const RegisterPage = () => {
+
+    const {registerUser, setRegisterUser} = useContext(Auth)
+
     const registerNavigate = useNavigate()
     const {register, reset, handleSubmit, formState: {errors}} = useForm(
         {
@@ -14,9 +18,11 @@ const RegisterPage = () => {
     )
 
     const handleForm = (data) =>{
-        console.log(data);
+        let arr = [...registerUser, data]
+        setRegisterUser(arr)
+        localStorage.setItem("registeredUser", JSON.stringify(arr))
+        alert("User Registered Successfully")
         reset();
-        
     }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4">

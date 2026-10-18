@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { Auth } from "../context/AuthContext";
 
 const LoginPage = () => {
+    const {loggedInUser, setLoggedInUser} = useContext(Auth)
   const loginNevigate = useNavigate();
 
   const {
@@ -16,6 +18,7 @@ const LoginPage = () => {
 
   const handleForm = (data) => {
     // console.log(data);
+    setLoggedInUser()
     reset();
   };
 
