@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { Auth } from '../context/AuthContext'
+import { toast } from 'react-toastify'
 
 
 
@@ -21,8 +22,10 @@ const RegisterPage = () => {
         let arr = [...registerUser, data]
         setRegisterUser(arr)
         localStorage.setItem("registeredUser", JSON.stringify(arr))
-        alert("User Registered Successfully")
+        // alert("User Registered Successfully")
+        toast.success("User Registered Successfully")
         reset();
+        registerNavigate('/')
     }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4">
